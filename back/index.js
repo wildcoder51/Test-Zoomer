@@ -1,6 +1,11 @@
 const express = require('express');
 const app = express();
 const port = 8000;
+const cors = require("cors");
+
+//Enbale All CORS Requests
+app.use(cors());
+//
 
 const revenues_2018_per_agency_monthly = require('./figures/revenues_2018_per_agency_monthly.json')
 const revenues_2018_per_agency = require('./figures/revenues_2018_per_agency.json')

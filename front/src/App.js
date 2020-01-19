@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import CallTestJson from './components/CallTestJson';
+import Figures from './components/Figures';
 
 function App() {
   return (
     <div className="App">
-      <CallTestJson />
+      <Figures />
     </div>
   );
 }
