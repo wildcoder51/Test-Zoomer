@@ -9,8 +9,6 @@ class FigureLine extends React.Component {
     }
   }
 
-
-
   render(){
     return(
       <div>

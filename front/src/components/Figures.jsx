@@ -7,12 +7,12 @@ class Figures extends React.Component {
     super()
     this.state = {
       figures : [],
-      chartData : {},
+      testData : [],
     }
   }
 
   getFigures = () =>{
-    axios.get('http://localhost:8000/figures/per-agency-monthly')
+    return axios.get('http://localhost:8000/figures/per-agency-monthly')
       .then (response => {
         this.setState({
           figures : response.data
@@ -20,33 +20,49 @@ class Figures extends React.Component {
       })
   }
 
-  componentDidMount(){
-    this.getFigures();
+  async componentDidMount(){
+    await this.getFigures();
+    const array = this.state.figures;
+    const results = array.reduce(this.groupByAgencyName, []);
+    this.setState({ testData: results });
   }
 
-  componentWillMount(){
-    this.getChartData();
+  compareAgencyName = (agencyName, item) => {
+    return agencyName === item.agency_name;
+  }
+  containAgency = (agencyName, items) => {
+    return items.some(this.compareAgencyName.bind(null, agencyName));
+  }
+  groupByAgencyName = (memo, item) => {
+    const agencyName = memo.filter(this.containAgency.bind(null, item.agency_name));
+    if (agencyName.length > 0) {
+      agencyName[0].push(item);
+    } else {
+      memo.push([item]);
+    }
+    return memo;
   }
 
-  getChartData(){
-    this.state.figures.map(figure =>(
-      this.setState({
-        chartData : {
-          labels : [figure.time],
-          datasets:[{
-            labels : 'Revenues',
-            data:[figure.revenues]
-          }]
-        }
-      })
-    ))
+  getRevenues = () => {
+    this.state.testData.map(el => el.revenues)
+  }
+  getLabel = () =>{
+    this.state.testData.map(el => el.time)
   }
 
+ 
   render() {
     return (
       <div>
         <p>Statistiques</p>
-        <FigureLine chartDatas={this.state.chartData} />
+        <FigureLine chartDatas={{
+          labels : this.getLabel(),
+          datasets:[{
+            labels : 'Revenues',
+            data :this.getRevenues()
+          }]
+        }} 
+        />
       </div>
     );
   }
