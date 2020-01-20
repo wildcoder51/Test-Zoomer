@@ -44,10 +44,15 @@ class Figures extends React.Component {
   }
 
   getRevenues = () => {
-    this.state.testData.map(el => el.revenues)
+    if (this.state.testData) {
+      console.log(this.state.testData)
+      this.state.testData[0].map(el => el.revenues)
+    }
   }
-  getLabel = () =>{
-    this.state.testData.map(el => el.time)
+  getLabel = () => {
+    if (this.state.testData) {
+      this.state.testData[0].map(el => el.time)
+    }
   }
 
  
@@ -55,14 +60,14 @@ class Figures extends React.Component {
     return (
       <div>
         <p>Statistiques</p>
-        <FigureLine chartDatas={{
+        {this.state.testData ? <FigureLine chartDatas={{
           labels : this.getLabel(),
           datasets:[{
             labels : 'Revenues',
             data :this.getRevenues()
           }]
         }} 
-        />
+        /> : <p>Loading...</p>}
       </div>
     );
   }
