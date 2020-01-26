@@ -7,9 +7,10 @@ class Figures extends React.Component {
     super()
     this.state = {
       figures : [],
-      testData : [],
     }
   }
+
+// GET FIGURES
 
   getFigures = () =>{
     return axios.get('http://localhost:8000/figures/per-agency-monthly')
@@ -42,32 +43,37 @@ class Figures extends React.Component {
     }
     return memo;
   }
+  //
 
-  getRevenues = () => {
-    if (this.state.testData) {
-      console.log(this.state.testData)
-      this.state.testData[0].map(el => el.revenues)
-    }
-  }
+  // GET LABEL TIME
+
   getLabel = () => {
-    if (this.state.testData) {
-      this.state.testData[0].map(el => el.time)
+    if (this.state.testData){
+      return this.state.testData[0].map(el => el.time)
     }
   }
 
- 
+  // GET ALL AGENCES FIGURES 
+  returnObjectFunction = () => {
+    const object = []
+    for (let i = 0; i < this.state.testData.length; i++){
+      object.push({
+          label : this.state.testData[i].map(el => el.agency_name),
+          data : this.state.testData[i].map(el => el.revenues),
+      })
+    }
+    return (object)
+  }
+
   render() {
     return (
       <div>
         <p>Statistiques</p>
         {this.state.testData ? <FigureLine chartDatas={{
           labels : this.getLabel(),
-          datasets:[{
-            labels : 'Revenues',
-            data :this.getRevenues()
-          }]
+          datasets : this.returnObjectFunction()
         }} 
-        /> : <p>Loading...</p>}
+        /> : <p>Loading..</p>}
       </div>
     );
   }

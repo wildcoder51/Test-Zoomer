@@ -1,5 +1,5 @@
 import React from 'react';
-import { Doughnut, Line, Bar } from 'react-chartjs-2';
+import {Line} from 'react-chartjs-2';
 
 class FigureLine extends React.Component {
   constructor(props){
