@@ -1,11 +1,13 @@
 import React from 'react';
 import './App.css';
-import Figures from './components/Figures';
+import ByAgencyMonthly from './components/ByAgencyMonthly/ByAgencyMonthly';
+import ByMonthGlobal from './components/ByMonthGlobal/ByMonthGlobal'
 
 function App() {
   return (
     <div className="App">
-      <Figures />
+      <ByAgencyMonthly />
+      <ByMonthGlobal />
     </div>
   );
 }

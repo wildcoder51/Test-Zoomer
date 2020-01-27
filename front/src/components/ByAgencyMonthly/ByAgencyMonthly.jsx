@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import FigureLine from './FigureLine'
 
-class Figures extends React.Component {
+class ByAgencyMonthly extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -27,7 +27,7 @@ class Figures extends React.Component {
     const results = array.reduce(this.groupByAgencyName, []);
     this.setState({ testData: results });
   }
-
+  // GROUPBY 
   compareAgencyName = (agencyName, item) => {
     return agencyName === item.agency_name;
   }
@@ -58,17 +58,18 @@ class Figures extends React.Component {
     const object = []
     for (let i = 0; i < this.state.testData.length; i++){
       object.push({
-          label : this.state.testData[i].map(el => el.agency_name),
+          label : this.state.testData[i][0].agency_name,
           data : this.state.testData[i].map(el => el.revenues),
       })
     }
     return (object)
   }
+  //
 
   render() {
     return (
       <div>
-        <p>Statistiques</p>
+        <h2>Revenus par mois par agence</h2>
         {this.state.testData ? <FigureLine chartDatas={{
           labels : this.getLabel(),
           datasets : this.returnObjectFunction()
@@ -79,4 +80,4 @@ class Figures extends React.Component {
   }
 }
 
-export default Figures;
+export default ByAgencyMonthly;
