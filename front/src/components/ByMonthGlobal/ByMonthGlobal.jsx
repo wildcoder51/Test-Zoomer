@@ -7,29 +7,29 @@ class ByMonthGlobal extends React.Component {
   constructor () {
     super ()
     this.state = {
-      figures : []
+      figurePerMonth : []
     }
   }
 
   componentDidMount (){
-    this.getFigures();
+    this.getFiguresPerMonth();
   }
 
-  getFigures = () =>{
+  getFiguresPerMonth = () =>{
     axios.get('http://localhost:8000/figures/per_month')
       .then (response => {
         this.setState({
-          figures : response.data
+          figurePerMonth : response.data
         })
       })
   }
 
   getChartDatas= () => {
     return({
-      labels : this.state.figures.map(el => el.time),
+      labels : this.state.figurePerMonth.map(el => el.time),
       datasets : [{
         label : 'Revenus',
-        data: this.state.figures.map(el => el.revenues)
+        data: this.state.figurePerMonth.map(el => el.revenues)
       }]
     })
   }
