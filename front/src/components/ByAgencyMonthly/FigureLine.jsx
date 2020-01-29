@@ -14,7 +14,20 @@ class FigureLine extends React.Component {
       <div>
         <Line
           data={this.state.chartData}
-          options={{}}
+          height={500}
+          options={{ 
+            maintainAspectRatio: false,
+            responsive : true,
+            scales : {
+              yAxes : [{
+                ticks : {
+                  callback : function(value,index,values){
+                    return value + ' €' ;
+                  }
+                }
+              }]
+            }
+          }}
         />
       </div>
     )

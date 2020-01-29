@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import {Bar} from 'react-chartjs-2';
+import {Bar} from 'react-chartjs-2'
 import moment from 'moment'
 
 
@@ -47,7 +47,7 @@ class ByMonthGlobal extends React.Component {
           ],
         borderWidth : 2,
         hoverBackgroundColor : 'rgb(24, 21, 17,0.2)',
-        barThickness: 30,
+        barThickness: 50,
       }]
     })
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import FigureLine from './FigureLine'
+import FigureLine from './FigureLine';
+import moment from 'moment'
 
 class ByAgencyMonthly extends React.Component {
   constructor() {
@@ -49,17 +50,45 @@ class ByAgencyMonthly extends React.Component {
 
   getLabel = () => {
     if (this.state.testData){
-      return this.state.testData[0].map(el => el.time)
+      return this.state.testData[0].map(el => moment(el.time).format('MMMM'))
     }
   }
 
   // GET ALL AGENCES FIGURES 
   returnObjectFunction = () => {
+    const color =
+          ['rgba(230, 61, 104, 0.5)',
+          'rgba(243, 180, 56, 0.5)',
+          'rgba(250, 220, 51, 0.5)',
+          'rgba(181, 250, 51 , 0.5)',
+          'rgba(51, 250, 220 , 0.5)',
+          'rgba(51, 178, 250, 0.5)',
+          'rgba(51, 69, 250, 0.5)',
+          'rgba(190, 51, 250 , 0.5)',
+          'rgba(212, 158, 118 , 0.5)',
+          'rgba(243, 180, 56, 0.5)',
+          'rgba(181, 250, 51 , 0.5)',
+          'rgba(51, 178, 250, 0.5)',
+          'rgba(230, 61, 104, 0.5)',
+          'rgba(243, 180, 56, 0.5)',
+          'rgba(250, 220, 51, 0.5)',
+          'rgba(181, 250, 51 , 0.5)',
+          'rgba(51, 250, 220 , 0.5)',
+          ];
     const object = []
     for (let i = 0; i < this.state.testData.length; i++){
       object.push({
           label : this.state.testData[i][0].agency_name,
           data : this.state.testData[i].map(el => el.revenues),
+          fill: false,
+          borderColor: color[i],
+          pointBorderColor: 'rgba(75,192,192,1)',
+          pointBackgroundColor: '#fff',
+          pointBorderWidth: 1,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+          pointHoverBorderColor: 'rgba(220,220,220,1)',
+          pointHoverBorderWidth: 2,
       })
     }
     return (object)
